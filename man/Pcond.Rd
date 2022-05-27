@@ -2,7 +2,7 @@
 % Please edit documentation in R/Pcond.R
 \name{Pcond}
 \alias{Pcond}
-\title{Calculating the conditionning of the birth-death process on the age of the process and its survival.}
+\title{Calculating the conditioning of the birth-death process on the age of the process and its survival.}
 \usage{
 Pcond(t, r, epsi, y)
 }
@@ -13,13 +13,13 @@ Pcond(t, r, epsi, y)
 
 \item{epsi}{Numeric. The turnover rate : \eqn{\mu / \lambda}. The units are in events/lineages/millions years.}
 
-\item{y}{Numeric. The sampling probability also called sampling fraction : \eqn{\k / \N}}
+\item{y}{Numeric. The sampling probability also called sampling fraction : \eqn{k / N}}
 }
 \value{
-The probabillity of the birth-death process starting with one lineage at time t and surviving at present.
+The probability of the birth-death process starting with one lineage at time t and surviving at present.
 }
 \description{
-Calculating the conditionning of the birth-death process on the age of the process and its survival.
+Calculating the conditioning of the birth-death process on the age of the process and its survival.
 }
 \author{
 Sophia Lambert
