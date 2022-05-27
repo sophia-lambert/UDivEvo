@@ -1,6 +1,6 @@
-#' Conditioning of the birth-death process on the age and the survival of the process.
+#' Conditioning the birth-death process on the age and the survival of the process.
 #'
-#' @description Calculating the conditioning of the birth-death process on the age of the process and its survival.
+#' @description Calculating the probability of conditioning the birth-death process on the age of the process and its survival.
 #'
 #' @param t Numeric. The time of the start of the birth-death process in millions of years.
 #' @param r Numeric. The net diversification rate : \eqn{\lambda - \mu}. The units are in events/lineages/millions years.

@@ -3,7 +3,9 @@ Package: UDivEvo
 Title: A package for Unknown Diversity Diversification Analysis in
     Evolution
 Version: 0.1.0
-Author: Sophia Lambert
+Authors@R: 
+    person("Sophia", "Lambert", , "slambert@bio.ens.psl.eu", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0001-8914-602X"))
 Maintainer: Sophia Lambert <slambert@bio.ens.psl.eu>
 Description: This package implements diversification analysis for clades
     with unknown global diversity estimates.  The main functions are
