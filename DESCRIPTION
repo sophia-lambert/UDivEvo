@@ -6,6 +6,6 @@ Author: Sophia Lambert
 Maintainer: Sophia Lambert <slambert@bio.ens.psl.eu>
 Description: This package implements diversification analysis for clades with unknown global diversity estimates.
     The main functions are parametrised to infer net diversification and turnover rate on reconstructed phylogenies.
-License: GNU General Public License v3.0e
+License: GPL (>= 3)
 Encoding: UTF-8
 LazyData: true
