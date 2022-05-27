@@ -9,7 +9,7 @@
 #'
 #' @author Sophia Lambert
 #'
-##' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+#@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
 
 Pcond <- function(t, r, epsi, y){
