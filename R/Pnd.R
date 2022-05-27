@@ -1,4 +1,6 @@
-#' Calculating the probability density of node depths.
+#' Probability density of node depths.
+#'
+#' @description Calculating the probability density of node depths of a phylogenetic tree.
 #'
 #' @param t Numerical vector. A vector specifying the node depths of a phylogeny in millions of years.
 #' @param r Numeric. The net diversification rate : \eqn{\lambda - \mu}. The units are in events/lineages/millions years.
@@ -9,10 +11,9 @@
 #'
 #' @author Sophia Lambert
 #'
-#' @references Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404. Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35.
+#' @references Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35. Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
 
 #@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
-
 
 Pnd <- function(t, r, epsi, y){
   y*r^3*exp(-r*t)/
