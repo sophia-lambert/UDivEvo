@@ -13,7 +13,8 @@ Description: This package implements diversification analysis for clades
     reconstructed phylogenies.
 License: GPL-3 + file LICENSE
 Imports: 
-    BayesianTools
+    BayesianTools,
+    stats
 Suggests: 
     ape,
     coda,
