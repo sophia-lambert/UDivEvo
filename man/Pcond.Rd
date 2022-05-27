@@ -2,7 +2,7 @@
 % Please edit documentation in R/Pcond.R
 \name{Pcond}
 \alias{Pcond}
-\title{Conditioning of the birth-death process on the age and the survival of the process.}
+\title{Conditioning the birth-death process on the age and the survival of the process.}
 \usage{
 Pcond(t, r, epsi, y)
 }
@@ -19,7 +19,7 @@ Pcond(t, r, epsi, y)
 The probability of the birth-death process starting with one lineage at time t and surviving at present.
 }
 \description{
-Calculating the conditioning of the birth-death process on the age of the process and its survival.
+Calculating the probability of conditioning the birth-death process on the age of the process and its survival.
 }
 \author{
 Sophia Lambert
