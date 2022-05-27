@@ -11,9 +11,9 @@
 #'
 #' @author Sophia Lambert
 #'
+#' @export
 
 #@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
-
 
 Pcond <- function(t, r, epsi, y){
   1/

@@ -2,7 +2,7 @@
 % Please edit documentation in R/Pnd.R
 \name{Pnd}
 \alias{Pnd}
-\title{Calculating the probability density of node depths.}
+\title{Probability density of node depths.}
 \usage{
 Pnd(t, r, epsi, y)
 }
@@ -19,10 +19,10 @@ Pnd(t, r, epsi, y)
 The probability density of node depths equivalent to \eqn{f\_y(t)} in Lambert 2018 and to \eqn{\lambda * p1} in Stadler 2010 and Lambert et al. 2022.
 }
 \description{
-Calculating the probability density of node depths.
+Calculating the probability density of node depths of a phylogenetic tree.
 }
 \references{
-Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404. Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35.
+Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35. Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
 }
 \author{
 Sophia Lambert

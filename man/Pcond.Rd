@@ -2,7 +2,7 @@
 % Please edit documentation in R/Pcond.R
 \name{Pcond}
 \alias{Pcond}
-\title{Calculating the conditioning of the birth-death process on the age of the process and its survival.}
+\title{Conditioning of the birth-death process on the age and the survival of the process.}
 \usage{
 Pcond(t, r, epsi, y)
 }
