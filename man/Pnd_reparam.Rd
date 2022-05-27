@@ -20,7 +20,9 @@ The probability density of node depths equivalent to \eqn{f\_y(t)} in Lambert 20
 Calculating the probability density of node depths of a phylogenetic tree parametrised on \eqn{y*\lambda} and \eqn{r}.
 }
 \references{
-Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35. Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404. Stadler, T. (2009). On incomplete sampling under birth–death models and connections to the sampling-based coalescent. Journal of theoretical biology, 261(1), 58-66.
+Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35.
+Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
+Stadler, T. (2009). On incomplete sampling under birth–death models and connections to the sampling-based coalescent. Journal of theoretical biology, 261(1), 58-66.
 }
 \author{
 Sophia Lambert

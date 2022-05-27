@@ -11,7 +11,8 @@
 #'
 #' @author Sophia Lambert
 #'
-#' @references Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35. Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
+#' @references Lambert, A. (2018). The coalescent of a sample from a binary branching process. Theoretical population biology, 122, 30-35.
+#' Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
 #'
 #' @export
 
