@@ -3,14 +3,16 @@
 #' @description Integrate function either from \code{stats::integrate} while overpassing errors or manual integration.
 #'
 #' @param dt Numeric. The length of the intervals on which the function is assumed to be constant. If \code{dt = 0} the function is integrated using  \code{stats::integrate} while overpassing errors. If a positive \code{dt} is given as argument, the integral is computed using a piece-wise constant approximation.
-#' @param f Function. An \code{R} function of one variable on which to integrate.
-#' @param lower Numeric. Lower limit of integration.
-#' @param upper Numeric. Upper limit of integration.
-#' @param rel.tol Numeric. Relative accuracy requested.
 #'
 #' @details If \code{dt = 0} any other arguments of \code{stats::integrate} can be specified. This function is a closure, it takes \code{dt} as argument and creates another function with arguments \code{f}, \code{lower}, \code{upper} and \code{rel.tol}.
 #'
-#' @return The final estimate of the integral.
+#' @return Returns an object of class \code{"function"}. This function takes the following arguments and will return the final estimate of the integral:
+#' \describe{
+#'   \item{f}{Function. An \code{R} function of one variable on which to integrate.}
+#'   \item{lower}{Numeric. Lower limit of integration.}
+#'   \item{upper}{Numeric. Upper limit of integration.}
+#'   \item{rel.tol}{Numeric. Relative accuracy requested.}
+#' }
 #'
 #' @author Sophia Lambert
 #'

@@ -4,13 +4,15 @@
 #'
 #' @param beta Logical. If TRUE, a beta distribution is assumed on the sampling probabilitie(s) \eqn{y}.
 #' @param unif Logical. If TRUE, a uniform distribution from a to b is assumed on the sampling probabilitie(s) \eqn{y}.
-#' @param x Numeric vector. The value of the sampling probabilitie(s) \eqn{y}.
-#' @param a Numeric. The value of \eqn{\alpha} or \eqn{a} respectively for the beta or the uniform distribution. This value cannot be negative for both distribution and cannnot exceed \eqn{b} for the uniform distribution.
-#' @param b Numeric. The value of \eqn{\beta} or \eqn{b} respectively for the beta or the uniform distribution. This value cannot be negative for both distribution, cannnot be inferior to \eqn{a} and cannot exceed 1 for the uniform distribution.
 #'
 #' @details This function is a closure. This functions takes \code{beta} and \code{unif} as arguments and creates another function with arguments \code{x}, \code{a} and \code{b}.
 #'
-#' @return The probability density of the sampling probabilitie(s) \eqn{y} assuming a beta distribution or a uniform distribution from a to b.
+#' @return Returns an object of class \code{"function"}. This function takes the following arguments and will return the probability density of the sampling probabilitie(s) \eqn{y} assuming a beta distribution or a uniform distribution from a to b:
+#' \describe{
+#'   \item{x}{Numeric vector. The value of the sampling probabilitie(s) \eqn{y}.}
+#'   \item{a}{Numeric. The value of \eqn{\alpha} or \eqn{a} respectively for the beta or the uniform distribution. This value cannot be negative for both distribution and cannnot exceed \eqn{b} for the uniform distribution.}
+#'   \item{b}{Numeric. The value of \eqn{\beta} or \eqn{b} respectively for the beta or the uniform distribution. This value cannot be negative for both distribution, cannnot be inferior to \eqn{a} and cannot exceed 1 for the uniform distribution.}
+#' }
 #'
 #' @author Sophia Lambert
 #'

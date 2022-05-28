@@ -8,17 +8,15 @@ int_Rho(dt)
 }
 \arguments{
 \item{dt}{Numeric. The length of the intervals on which the function is assumed to be constant. If \code{dt = 0} the function is integrated using  \code{stats::integrate} while overpassing errors. If a positive \code{dt} is given as argument, the integral is computed using a piece-wise constant approximation.}
-
-\item{f}{Function. An \code{R} function of one variable on which to integrate.}
-
-\item{lower}{Numeric. Lower limit of integration.}
-
-\item{upper}{Numeric. Upper limit of integration.}
-
-\item{rel.tol}{Numeric. Relative accuracy requested.}
 }
 \value{
-The final estimate of the integral.
+Returns an object of class \code{"function"}. This function takes the following arguments and will return the final estimate of the integral:
+\describe{
+  \item{f}{Function. An \code{R} function of one variable on which to integrate.}
+  \item{lower}{Numeric. Lower limit of integration.}
+  \item{upper}{Numeric. Upper limit of integration.}
+  \item{rel.tol}{Numeric. Relative accuracy requested.}
+}
 }
 \description{
 Integrate function either from \code{stats::integrate} while overpassing errors or manual integration.
