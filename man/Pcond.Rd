@@ -9,11 +9,11 @@ Pcond(t, r, epsi, y)
 \arguments{
 \item{t}{Numeric. The time of the start of the birth-death process in millions of years.}
 
-\item{r}{Numeric. The net diversification rate : \eqn{\lambda - \mu}. The units are in events/lineages/millions years.}
+\item{r}{Numeric. The net diversification rate: \eqn{\lambda - \mu}. The units are in events/lineages/millions years.}
 
-\item{epsi}{Numeric. The turnover rate : \eqn{\mu / \lambda}. The units are in events/lineages/millions years.}
+\item{epsi}{Numeric. The turnover rate: \eqn{\mu / \lambda}. The units are in events/lineages/millions years.}
 
-\item{y}{Numeric. The sampling probability also called sampling fraction : \eqn{k / N}.}
+\item{y}{Numeric. The sampling probability also called sampling fraction: \eqn{k / N}.}
 }
 \value{
 The probability of the birth-death process starting with one lineage at time t and surviving at present.

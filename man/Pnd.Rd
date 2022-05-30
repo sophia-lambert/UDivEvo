@@ -7,13 +7,13 @@
 Pnd(t, r, epsi, y)
 }
 \arguments{
-\item{t}{Numerical vector. A vector specifying the node depths of a phylogeny in millions of years.}
+\item{t}{Numeric vector. A vector specifying the node depths of a phylogeny in millions of years.}
 
-\item{r}{Numeric. The net diversification rate : \eqn{\lambda - \mu}. The units are in events/lineages/millions years.}
+\item{r}{Numeric. The net diversification rate: \eqn{\lambda - \mu}. The units are in events/lineages/millions years.}
 
-\item{epsi}{Numeric. The turnover rate : \eqn{\mu / \lambda}. The units are in events/lineages/millions years.}
+\item{epsi}{Numeric. The turnover rate: \eqn{\mu / \lambda}. The units are in events/lineages/millions years.}
 
-\item{y}{Numeric. The sampling probability also called sampling fraction : \eqn{k / N}.}
+\item{y}{Numeric. The sampling probability also called sampling fraction: \eqn{k / N}.}
 }
 \value{
 The probability density of node depths equivalent to \eqn{f\_y(t)} in Lambert 2018 and to \eqn{\lambda * p1} in Stadler 2010 and Lambert et al. 2022.

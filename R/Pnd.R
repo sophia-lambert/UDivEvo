@@ -2,10 +2,10 @@
 #'
 #' @description Calculating the probability density of node depths of a phylogenetic tree.
 #'
-#' @param t Numerical vector. A vector specifying the node depths of a phylogeny in millions of years.
-#' @param r Numeric. The net diversification rate : \eqn{\lambda - \mu}. The units are in events/lineages/millions years.
-#' @param epsi Numeric. The turnover rate : \eqn{\mu / \lambda}. The units are in events/lineages/millions years.
-#' @param y Numeric. The sampling probability also called sampling fraction : \eqn{k / N}.
+#' @param t Numeric vector. A vector specifying the node depths of a phylogeny in millions of years.
+#' @param r Numeric. The net diversification rate: \eqn{\lambda - \mu}. The units are in events/lineages/millions years.
+#' @param epsi Numeric. The turnover rate: \eqn{\mu / \lambda}. The units are in events/lineages/millions years.
+#' @param y Numeric. The sampling probability also called sampling fraction: \eqn{k / N}.
 #'
 #' @return The probability density of node depths equivalent to \eqn{f\_y(t)} in Lambert 2018 and to \eqn{\lambda * p1} in Stadler 2010 and Lambert et al. 2022.
 #'
