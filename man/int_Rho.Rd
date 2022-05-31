@@ -24,6 +24,9 @@ Integrate function either from \code{stats::integrate} while overpassing errors 
 \details{
 If \code{dt = 0} any other arguments of \code{stats::integrate} can be specified. This function is a closure, it takes \code{dt} as argument and creates another function with arguments \code{f}, \code{lower}, \code{upper} and \code{rel.tol}.
 }
+\seealso{
+\code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+}
 \author{
 Sophia Lambert
 }

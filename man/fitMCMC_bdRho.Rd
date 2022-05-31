@@ -55,7 +55,7 @@ fitMCMC_bdRho(
 
 \item{cond}{Character. Specifying the conditioning of the birth-death process. Two conditioning are available, either \code{cond = "crown"} (the default option) if the phylogeny used is a crown phylogeny or \code{cond = "stem"} if the phylogeny used is a stem phylogeny. Note that if a set of phylogenies are used, they will be conditioned the same way according to this argument.}
 
-\item{YULE}{Logical. If \code{TRUE}, the extinction rate \eqn{\mu} and thus the turnover rate \eqn{\epsilon} is fixed to \eqn{0}. If \code{FALSE} (the default option), the turnover rate \eqn{\epsilon} is not fixed to \eqn{0} and is thus inferred. This option is not available if the model is reparametrised (\code{reparam = TRUE}).}
+\item{YULE}{Logical. If \code{TRUE}, the extinction rate \eqn{\mu} thus the turnover rate \eqn{\epsilon} are fixed to \eqn{0} and the net diversification rate \eqn{r} equals the speciation rate \eqn{\lambda}. If \code{FALSE} (the default option), the turnover rate \eqn{\epsilon} is not fixed to \eqn{0} and is thus inferred. This option is not available if the model is reparametrised (\code{reparam = TRUE}).}
 
 \item{dt}{Numeric. This argument is only used if \code{y = NULL} and \code{reparam = FALSE}. If \code{dt = 0}, the integral on the sampling probabilitie(s) is computed using the R \code{stats::integrate} function. If \eqn{dt\ge0}, the integral of the sampling probabilitie(s) is performed manually using a piece-wise constant approximation. \code{dt} represents the length of the interval on which the function integrated is assumed to be constant. For manual integral, advised value of \code{dt} are \eqn{1e-3} to \eqn{1e-5}.}
 

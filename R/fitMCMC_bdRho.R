@@ -14,7 +14,7 @@
 #' @param afix Logical. This argument is only used if \code{y = NULL} and \code{reparam = FALSE}. If \code{TRUE} (the default option), the hyperparameter \eqn{a} of the model is fixed. If \code{FALSE}, the hyperparameter \eqn{a} of the model is inferred.
 #' @param bfix Logical. This argument is only used if \code{y = NULL} and \code{reparam = FALSE}. If \code{TRUE} (the default option), the hyperparameter \eqn{b} of the model is fixed. If \code{FALSE}, the hyperparameter \eqn{b} of the model is inferred.
 #' @param cond Character. Specifying the conditioning of the birth-death process. Two conditioning are available, either \code{cond = "crown"} (the default option) if the phylogeny used is a crown phylogeny or \code{cond = "stem"} if the phylogeny used is a stem phylogeny. Note that if a set of phylogenies are used, they will be conditioned the same way according to this argument.
-#' @param YULE Logical. If \code{TRUE}, the extinction rate \eqn{\mu} and thus the turnover rate \eqn{\epsilon} is fixed to \eqn{0}. If \code{FALSE} (the default option), the turnover rate \eqn{\epsilon} is not fixed to \eqn{0} and is thus inferred. This option is not available if the model is reparametrised (\code{reparam = TRUE}).
+#' @param YULE Logical. If \code{TRUE}, the extinction rate \eqn{\mu} thus the turnover rate \eqn{\epsilon} are fixed to \eqn{0} and the net diversification rate \eqn{r} equals the speciation rate \eqn{\lambda}. If \code{FALSE} (the default option), the turnover rate \eqn{\epsilon} is not fixed to \eqn{0} and is thus inferred. This option is not available if the model is reparametrised (\code{reparam = TRUE}).
 #' @param dt Numeric. This argument is only used if \code{y = NULL} and \code{reparam = FALSE}. If \code{dt = 0}, the integral on the sampling probabilitie(s) is computed using the R \code{stats::integrate} function. If \eqn{dt\ge0}, the integral of the sampling probabilitie(s) is performed manually using a piece-wise constant approximation. \code{dt} represents the length of the interval on which the function integrated is assumed to be constant. For manual integral, advised value of \code{dt} are \eqn{1e-3} to \eqn{1e-5}.
 #' @param rel.tol Numeric. This argument is only used if \code{y = NULL}, \code{reparam = FALSE} and \code{dt = 0}. This represents the relative accuracy requested when the integral is performed. Typically \code{.Machine$double.eps^0.25} is used but a value of \eqn{1e-10} (the default value) has been tested and performs well.
 #' @param tuned_dichotomy Logical. This argument is only used if \code{y = NULL} and \code{reparam = FALSE}. If \code{TRUE}, when the log likelihood of the model is equal to non finite value due to approximations, a dichotomy search is performed to find a tuning parameter that will be used for getting a finite value of the log likelihood. If \code{TRUE}, the log likelihood will take longer to calculate. Else if \code{FALSE}, no dichotomy search is performed; if the log likelihood is equal to non finite value due to approximations, the log likelihood will take this non finite value for the corresponding parameters.
@@ -52,10 +52,10 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
                           a = 0, b = 1,
                           afix = T, bfix =T,
                           cond = "crown",
-                          YULE = FALSE, dt = 0, # advised one 1e-3 to 1e-5
-                          rel.tol = 1e-10, # changed IMPORTANT if the inference stop by itself it means that the rel.tol is probably too low maybe add an option if the integrate is NULL and does not exist
+                          YULE = FALSE, dt = 0,
+                          rel.tol = 1e-10,
                           tuned_dichotomy = TRUE,
-                          brk = 2000, # 2000 is good but to be sure we can add a little bit more also seems that 200 works fine but 20 is too small
+                          brk = 2000,
                           savedBayesianSetup = NULL,
                           mcmcSettings = NULL,
                           prior = NULL,
@@ -63,8 +63,11 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
                           save_inter = NULL,
                           index_saving = NULL){
 
+  # TO DO : rel.tol, if the inference stop by itself it means that the rel.tol is probably too low maybe add an option if the integrate is NULL and does not exist
+  # same thing for save_inter with the checkpointing
+
   if (!inherits(phylo, c("phylo", "multiPhylo")))
-    stop("object \"phylo\" is not of class \"phylo\" or \"multiPhylo\"") # should put a stop but does not work
+    stop("object \"phylo\" is not of class \"phylo\" or \"multiPhylo\"") # check the stops
 
   # add if common only one starting value
   # if beta = T cannot start with a = 0 or b = 0
@@ -101,7 +104,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
   likeli <- likelihood_bdRho(tottime = tot_time, nbtips = nbtips,
                              tj = tj, yj = y, reparam = reparam,
                              beta = beta, unif = unif, root = root,
-                             dt = dt, rel.tol = rel.tol, # changed
+                             dt = dt, rel.tol = rel.tol,
                              tuned_dichotomy = tuned_dichotomy, brk = brk)
 
 
@@ -124,7 +127,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
 
         optimLH <- function(init)
         {
-          r <- rep(init[1:(p/2)], len) # I do not understand why it works like that length(r) out of the function is not the correct length no ?
+          r <- rep(init[1:(p/2)], len)
           epsi <- rep(init[(1+(p/2)):p], len)
           LH <- likeli(div = r, turn = epsi)
           return(LH)
@@ -153,9 +156,9 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
       names = c(paste("div rate", 1:(p/2)), paste("epsi rate", 1:(p/2)))
     }
 
-    # if you know the sampling fraction and you first the turnover rate to be 0 (Yule model)
+    # if you know the sampling fraction and you fix the turnover rate to be 0 (Yule model)
 
-    else # YULE = TRUE means fix.mu = TRUE and mu = 0 the d parameter becomes the lambda
+    else # YULE = TRUE means fix.mu = TRUE and mu = 0 the r parameter becomes the lambda
     {
       message('extinction rate(s) and turnover rate(s) "epsi" are fixed to 0')
       p <- length(prior$lower)
@@ -237,8 +240,8 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
 
       }
     }
-    else # YULE = TRUE means fix.mu = TRUE and mu = 0 the d parameter becomes the lambda
-      stop("YULE model for reparam = TRUE is not available") # should be a stop
+    else # YULE = TRUE means fix.mu = TRUE and mu = 0 the r parameter becomes the lambda
+      stop("YULE model for reparam = TRUE is not available") # check the stop
 
     names = c(paste("div rate", 1:(p/2)),paste("ylamb", 1:(p/2)))
   }
@@ -277,7 +280,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
             bfLH <- tuningLH(div = r, turn = epsi, a = a, b = b)
             LH <- bfLH$logLik
             # if(tun_mem == TRUE) tun.init <<- bfLH$tun # IMPORTANT tun_mem does not exist anymore
-            # if(iter>burnin) tun.init <<- bfLH$tun # modified but need to be tested with the new savings maybe the burnin and thinin will be important when
+            # if(iter>burnin) tun.init <<- bfLH$tun # memoryless tuning since the dichotomy search is faster
             return(LH)
           }
 
@@ -309,7 +312,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
         names = c(paste("div rate", 1:(p/2)), paste("epsi rate", 1:(p/2)))
       }
 
-      # and we are infering a
+      # and we are inferring a
 
       else if(afix == FALSE & bfix == TRUE){
         p <- length(prior$lower)
@@ -491,7 +494,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
             # if(tun_mem == TRUE) tun.init <<- bfLH$tun # IMPORTANT tun_mem does not exist anymore
             return(LH)
           }
-          # if(is.infinite(temp$value)) warning("Yule model is highly improbable") check if we have similar problems in MCMC
+          # if(is.infinite(temp$value)) warning("Yule model is highly improbable")
 
           model.bd <- "Yule.Rho_fix_a_b"
 
@@ -677,9 +680,9 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
 
   LL <- function(par) {optimLH(par)}
   if(is.null(prior)) prior = BayesianTools::createUniformPrior(lower = rep(0,p), upper = rep(10,p))
-  if(is.null(savedBayesianSetup)) savedBayesianSetup = BayesianTools::createBayesianSetup(likelihood = LL, prior = prior, names = names, parallel = parallel) # modified
+  if(is.null(savedBayesianSetup)) savedBayesianSetup = BayesianTools::createBayesianSetup(likelihood = LL, prior = prior, names = names, parallel = parallel)
   if(("bayesianOutput" %in% class(savedBayesianSetup)) & (length(class(savedBayesianSetup))==1)) {
-    chain <- coda::as.mcmc.list(lapply(1:length(savedBayesianSetup$saveChain),function(i) coda::as.mcmc(savedBayesianSetup$saveChain[[i]]))) # change Npop
+    chain <- coda::as.mcmc.list(lapply(1:length(savedBayesianSetup$saveChain),function(i) coda::as.mcmc(savedBayesianSetup$saveChain[[i]])))
     savedBayesianSetup = list(
       setup = savedBayesianSetup$setup,
       settings = savedBayesianSetup$settings,
@@ -691,7 +694,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
     class(savedBayesianSetup) <- c("mcmcSampler", "bayesianOutput")
   }
   MCMCres <- runMCMC(bayesianSetup = savedBayesianSetup, sampler = "DEzs", settings = mcmcSettings, save_inter = save_inter, index_saving = index_saving)
-  res <- list(model = model.bd, mcmc = MCMCres) # changed
+  res <- list(model = model.bd, mcmc = MCMCres)
   class(res) <- "MCMC_bd"
   return(res)
 }

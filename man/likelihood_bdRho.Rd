@@ -73,6 +73,9 @@ This function is specifically intended to be used on phylogenies with unknown or
 \references{
 Stadler, T. (2009). On incomplete sampling under birth–death models and connections to the sampling-based coalescent. Journal of theoretical biology, 261(1), 58-66.
 }
+\seealso{
+\code{\link{fitMCMC_bdRho}}
+}
 \author{
 Sophia Lambert
 }

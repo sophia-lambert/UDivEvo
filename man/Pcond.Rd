@@ -21,6 +21,9 @@ The probability of the birth-death process starting with one lineage at time t a
 \description{
 Calculating the probability of conditioning the birth-death process on the age of the process and its survival.
 }
+\seealso{
+\code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+}
 \author{
 Sophia Lambert
 }

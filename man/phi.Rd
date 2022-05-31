@@ -25,6 +25,9 @@ Calculating the probability density function of the sampling probabilitie(s) \eq
 \details{
 This function is a closure. This functions takes \code{beta} and \code{unif} as arguments and creates another function with arguments \code{x}, \code{a} and \code{b}.
 }
+\seealso{
+\code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+}
 \author{
 Sophia Lambert
 }
