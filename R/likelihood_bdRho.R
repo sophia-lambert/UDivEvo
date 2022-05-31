@@ -50,8 +50,8 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
       if(any(div < 0) | any(turn < 0)){loglik = -Inf}
       else{
         loglik <- sapply(seqphy, function(i){
-          log(Pcond(t = tottime[i], d = div[i], epsi = turn[i], rho = yj[i]))*(root+1) + # age + survival conditioning
-            sum(log(Pnd(tj[[i]], d = div[i], epsi = turn[i], rho = yj[i])))})
+          log(Pcond(t = tottime[i], r = div[i], epsi = turn[i], y = yj[i]))*(root+1) + # age + survival conditioning
+            sum(log(Pnd(tj[[i]], r = div[i], epsi = turn[i], y = yj[i])))})
       }
       reslogLik <- sum(loglik)
       return(reslogLik)
@@ -65,8 +65,8 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
       if(any(ylamb < 0) | any(div < 0)){loglik = -Inf}
       else{
         loglik <- sapply(seqphy, function(i){
-          log(Pcond_reparam(t = tottime[i], yl = ylamb[i], d = div[i]))*(root+1) + # age + survival conditioning
-            sum(log(Pnd_reparam(t = tj[[i]], yl = ylamb[i], d = div[i])))})
+          log(Pcond_reparam(t = tottime[i], yl = ylamb[i], r = div[i]))*(root+1) + # age + survival conditioning
+            sum(log(Pnd_reparam(t = tj[[i]], yl = ylamb[i], r = div[i])))})
       }
       reslogLik <- sum(loglik)
       return(reslogLik)
@@ -89,9 +89,9 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
           like_tuning <- function(tun, seqphy){
             integr_loglik <- sapply(seqphy, function(i){
               log(integr_Rho(function(yj) sapply(yj, function (yj){
-                exp(log(Pcond(t = tottime[i], d = div[i], epsi = turn[i], rho = yj))*(root+1) +
+                exp(log(Pcond(t = tottime[i], r = div[i], epsi = turn[i], y = yj))*(root+1) +
                       tottime[i]*div[i]*2 + # age + survival conditioning + tuning cond
-                      sum(log(Pnd(tj[[i]], d = div[i], epsi = turn[i], rho = yj)) +
+                      sum(log(Pnd(tj[[i]], r = div[i], epsi = turn[i], y = yj)) +
                             tj[[i]]*div[i]-log(div[i])) - tun[i]*(nbtips[i]-(1+root)) +  # adding the first tuning and the tuning flex
                       log(prPhi(x = yj, a = a, b = b)))
               }), 0, 1, rel.tol = rel.tol))-
