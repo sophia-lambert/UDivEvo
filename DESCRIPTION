@@ -14,7 +14,8 @@ Description: This package implements diversification analysis for clades
 License: GPL-3 + file LICENSE
 Imports: 
     BayesianTools,
-    stats
+    stats,
+    picante
 Suggests: 
     ape,
     coda,
