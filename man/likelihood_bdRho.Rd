@@ -52,8 +52,8 @@ Returns an object of class \code{function}. This function can take the following
   \item{ylamb}{Numeric vector. The product of the sampling probabilitie(s) and speciation rates \eqn{y*\lambda} also called \eqn{c} in Stadler 2009. The length of the numeric vector equals the number of phylogenie(s) used.}
   \item{tun.init}{Numeric vector. The initial tuning parameters values. Typically, it will take the value \eqn{log(1)}. The length of the numeric vector equals the number of phylogenie(s) used.}
   \item{seqphy.init}{Integer vector. A regular sequence of the number of phylogenie(s) used, i.e. if \eqn{10} phylogenies are used \code{seqphy.init = c(1:10)}}
-  \item{a}{Numeric. The value of \eqn{\alpha} or \eqn{a} respectively for the beta or the uniform distribution. This value cannot be negative for both distributions and cannnot exceed \eqn{b} for the uniform distribution.}
-  \item{b}{Numeric. The value of \eqn{\beta} or \eqn{b} respectively for the beta or the uniform distribution. This value cannot be negative for both distributions, cannnot be inferior to \eqn{a} and cannot exceed 1 for the uniform distribution.}
+  \item{a}{Numeric. The value of \eqn{\alpha} or \eqn{a} respectively for the beta or the uniform distribution. This value cannot be negative for both distributions and cannot exceed \eqn{b} and \eqn{1} for the uniform distribution.}
+  \item{b}{Numeric. The value of \eqn{\beta} or \eqn{b} respectively for the beta or the uniform distribution. This value cannot be negative for both distributions, cannot be inferior to \eqn{a} and cannot exceed 1 for the uniform distribution.}
 }
 }
 \description{
