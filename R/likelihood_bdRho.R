@@ -39,8 +39,8 @@
 #' @author Sophia Lambert
 #'
 #' @export
-
-#@seealso \code{\link{fitMCMC_bdRho}}
+#'
+#' @seealso \code{\link{fitMCMC_bdRho}}
 
 likelihood_bdRho <- function(tottime, nbtips, tj, yj,
                              reparam = FALSE, beta, unif,

@@ -15,8 +15,8 @@
 #' Stadler, T. (2009). On incomplete sampling under birth–death models and connections to the sampling-based coalescent. Journal of theoretical biology, 261(1), 58-66.
 #'
 #' @export
-
-#@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+#'
+#' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
 Pnd_reparam <- function(t, yl, r){
   yl*r^2*exp(-r*t)/

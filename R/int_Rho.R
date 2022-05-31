@@ -17,8 +17,8 @@
 #' @author Sophia Lambert
 #'
 #' @export
-
-#@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+#'
+#' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
 int_Rho <- function(dt){
   if(dt==0){

@@ -15,8 +15,8 @@
 #' Stadler, T. (2010). Sampling-through-time in birth–death trees. Journal of theoretical biology, 267(3), 396-404.
 #'
 #' @export
-
-#@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+#'
+#' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
 Pnd <- function(t, r, epsi, y){
   y*r^3*exp(-r*t)/

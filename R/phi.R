@@ -17,8 +17,8 @@
 #' @author Sophia Lambert
 #'
 #' @export
-
-#@seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
+#'
+#' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
 phi <- function(beta = F, unif = F){ # by default put a = 0 and b = 1
   if(beta == T & unif == T)
