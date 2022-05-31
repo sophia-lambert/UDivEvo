@@ -73,7 +73,7 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
     }
   }
 
-  # The birth-death\_\int_\rho (Bernoulli sampling) model when the sampling probability is not known.
+  # The birth-death∫rho (Bernoulli sampling) model when the sampling probability is not known.
 
   else{
     integr_Rho <- int_Rho(dt = dt)
