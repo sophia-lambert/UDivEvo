@@ -41,6 +41,8 @@
 #'
 #' @author Sophia Lambert
 #'
+#' @example /inst/examples/ExfitMCMC_bdRho.R
+#'
 #' @export
 #'
 #' @seealso \code{\link{likelihood_bdRho}} and \code{\link{fitMCMC_bdK}}
