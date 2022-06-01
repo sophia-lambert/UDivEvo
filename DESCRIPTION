@@ -18,6 +18,7 @@ Imports:
     picante,
     stats,
     TESS,
+    TreeSim,
     utils
 Suggests: 
     ape,
