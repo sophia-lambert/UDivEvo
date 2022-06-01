@@ -4,7 +4,7 @@
 \alias{phi}
 \title{Prior distribution on sampling probabilitie(s)}
 \usage{
-phi(beta = F, unif = F)
+phi(beta = FALSE, unif = FALSE)
 }
 \arguments{
 \item{beta}{Logical. If TRUE, a beta distribution is assumed on the sampling probabilitie(s) \eqn{y}.}

@@ -50,9 +50,9 @@
 
 fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
                           reparam = FALSE, common = TRUE,
-                          beta = F, unif = T,
+                          beta = FALSE, unif = TRUE,
                           a = 0, b = 1,
-                          afix = T, bfix =T,
+                          afix = TRUE, bfix =TRUE,
                           cond = "crown",
                           YULE = FALSE, dt = 0,
                           rel.tol = 1e-10,
@@ -61,7 +61,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
                           savedBayesianSetup = NULL,
                           mcmcSettings = NULL,
                           prior = NULL,
-                          parallel = F,
+                          parallel = FALSE,
                           save_inter = NULL,
                           index_saving = NULL){
 

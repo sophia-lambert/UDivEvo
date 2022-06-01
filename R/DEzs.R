@@ -46,7 +46,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
   } else setup <- bayesianSetup$setup
 
   setup <- BayesianTools::checkBayesianSetup(setup, parallel = settings$parallel) # calling parallel will check if requested parallelization in settings is provided by the BayesianSetup
-  if(is.null(settings$parallel)) settings$parallel = setup$parallel # checking back - if no parallelization is provided, we use the parallelization in the BayesianSetup. We could also set parallel = F, but I feel it makes more sense to use the Bayesiansetup as default
+  if(is.null(settings$parallel)) settings$parallel = setup$parallel # checking back - if no parallelization is provided, we use the parallelization in the BayesianSetup. We could also set parallel = FALSE, but I feel it makes more sense to use the Bayesiansetup as default
 
   if(!restart){
     if(is.null(settings$startValue)){
@@ -89,7 +89,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
   FUN = setup$posterior$density
 
   if(is.null(settings$parallel)) parallel = setup$parallel else parallel <- settings$parallel
-  if(parallel == T & setup$parallel == F) stop("parallel = T requested in DEzs but BayesianSetup does not support parallelization. See help of BayesianSetup on how to enable parallelization")
+  if(parallel == TRUE & setup$parallel == FALSE) stop("parallel = TRUE requested in DEzs but BayesianSetup does not support parallelization. See help of BayesianSetup on how to enable parallelization")
 
   ## Initialize blockUpdate parameters and settings
   blockdefault <- list("none", k = NULL, h = NULL, pSel = NULL, pGroup = NULL,
@@ -130,7 +130,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
   eps.mult <- settings$eps.mult
   eps.add <- settings$eps.add
 
-  # Initialization of previous chain length (= 0 if restart = F)
+  # Initialization of previous chain length (= 0 if restart = FALSE)
   lChainOld <- 0
 
   Npar <- ncol(X)
@@ -173,7 +173,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
   counterZ <- 0
 
   # accept.prob <- 0
-  logfitness_X <- FUN(X, returnAll = T)
+  logfitness_X <- FUN(X, returnAll = TRUE)
 
 
   # Write first values in chain
@@ -242,7 +242,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
 
 
       # run proposals
-      logfitness_x_prop <- FUN(x_prop, returnAll = T)
+      logfitness_x_prop <- FUN(x_prop, returnAll = TRUE)
 
       # evaluate acceptance
       for(i in 1:Npop){
@@ -295,7 +295,7 @@ DEzs <- function(bayesianSetup, save_inter = NULL, index_saving = NULL,
 
 
         # evaluate proposal - can this be mixed with the parallel above?
-        logfitness_x_prop <- FUN(x_prop, returnAll = T)
+        logfitness_x_prop <- FUN(x_prop, returnAll = TRUE)
 
         # evaluate acceptance
         if(!is.na(logfitness_x_prop[1] - logfitness_X[i,1])){

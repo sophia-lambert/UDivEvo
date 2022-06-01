@@ -16,7 +16,7 @@ fitMCMC_bdK(
   savedBayesianSetup = NULL,
   mcmcSettings = NULL,
   prior = NULL,
-  parallel = F,
+  parallel = FALSE,
   save_inter = NULL,
   index_saving = NULL
 )

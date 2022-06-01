@@ -66,7 +66,7 @@ runMCMC <- function(bayesianSetup , sampler = "DEzs", settings = NULL,  save_int
   #### Assertions
   if(!restart && setup$numPars == 1) if(!BayesianTools::getPossibleSamplerTypes()$univariate[which(BayesianTools::getPossibleSamplerTypes()$BTname == settings$sampler)]) stop("This sampler can not be applied to a univariate distribution")
 
-  if(restart == T) if(!BayesianTools::getPossibleSamplerTypes()$restartable[which(BayesianTools::getPossibleSamplerTypes()$BTname == settings$sampler)]) stop("This sampler can not be restarted")
+  if(restart == TRUE) if(!BayesianTools::getPossibleSamplerTypes()$restartable[which(BayesianTools::getPossibleSamplerTypes()$BTname == settings$sampler)]) stop("This sampler can not be restarted")
 
   ########### Recursive call in case multiple chains are to be run
   if(settings$nrChains >1){
@@ -114,7 +114,7 @@ runMCMC <- function(bayesianSetup , sampler = "DEzs", settings = NULL,  save_int
     ############## Differential Evolution #####################
     if (sampler == "DE"){
 
-      if(restart == F) out <- BayesianTools::DE(bayesianSetup = setup, settings = settings)
+      if(restart == FALSE) out <- BayesianTools::DE(bayesianSetup = setup, settings = settings)
       else out <- BayesianTools::DE(bayesianSetup = previousMcmcSampler, settings = settings)
 
       #out <- DE(bayesianSetup = bayesianSetup, settings = list(startValue = NULL, iterations = settings$iterations, burnin = settings$burnin, eps = settings$eps, parallel = settings$parallel, consoleUpdates = settings$consoleUpdates,
@@ -135,7 +135,7 @@ runMCMC <- function(bayesianSetup , sampler = "DEzs", settings = NULL,  save_int
       # check z matrix
       if(!is.null(settings$Z)) setup$prior$checkStart(settings$Z,z = TRUE)
 
-      if(restart == F) out <- DEzs(bayesianSetup = setup, settings = settings, save_inter = save_inter, index_saving = index_saving)
+      if(restart == FALSE) out <- DEzs(bayesianSetup = setup, settings = settings, save_inter = save_inter, index_saving = index_saving)
       else out <- DEzs(bayesianSetup = previousMcmcSampler, settings = settings, save_inter = save_inter, index_saving = index_saving)
 
       mcmcSampler = list(
@@ -152,7 +152,7 @@ runMCMC <- function(bayesianSetup , sampler = "DEzs", settings = NULL,  save_int
     ############## DREAM
     if (sampler == "DREAM"){
 
-      if(restart == F) out <- BayesianTools::DREAM(bayesianSetup = setup, settings = settings)
+      if(restart == FALSE) out <- BayesianTools::DREAM(bayesianSetup = setup, settings = settings)
       else out <- BayesianTools::DREAM(bayesianSetup = previousMcmcSampler, settings = settings)
 
       mcmcSampler = list(
@@ -172,7 +172,7 @@ runMCMC <- function(bayesianSetup , sampler = "DEzs", settings = NULL,  save_int
       # check z matrix
       if(!is.null(settings$Z)) setup$prior$checkStart(settings$Z,z = TRUE)
 
-      if(restart == F) out <- BayesianTools::DREAMzs(bayesianSetup = setup, settings = settings)
+      if(restart == FALSE) out <- BayesianTools::DREAMzs(bayesianSetup = setup, settings = settings)
       else out <- BayesianTools::DREAMzs(bayesianSetup = previousMcmcSampler, settings = settings)
 
       mcmcSampler = list(

@@ -10,12 +10,12 @@ fitMCMC_bdRho(
   y = NULL,
   reparam = FALSE,
   common = TRUE,
-  beta = F,
-  unif = T,
+  beta = FALSE,
+  unif = TRUE,
   a = 0,
   b = 1,
-  afix = T,
-  bfix = T,
+  afix = TRUE,
+  bfix = TRUE,
   cond = "crown",
   YULE = FALSE,
   dt = 0,
@@ -25,7 +25,7 @@ fitMCMC_bdRho(
   savedBayesianSetup = NULL,
   mcmcSettings = NULL,
   prior = NULL,
-  parallel = F,
+  parallel = FALSE,
   save_inter = NULL,
   index_saving = NULL
 )
@@ -150,7 +150,7 @@ res_fitMCMC_M1 <- fitMCMC_bdRho(phylo = tree1,
                                 mcmcSettings = list(iterations = 3*nbIter,
                                                     startValue = startValueTest4),
                                 prior = priorTest4,
-                                parallel = F, save_inter =
+                                parallel = FALSE, save_inter =
                                   c(seq(from = proc.time()[3], to = maxTime, by = freqTime),stopTime),
                                 index_saving = as.factor("M1_tree1"))
 
@@ -159,7 +159,7 @@ plot(res_fitMCMC_M1$mcmc)
 # Fitting the classical birth-death-sampling model
 
 res_fitMCMC_M5 <- fitMCMC_bdRho(phylo = tree1,
-                                tot_time = tot_time, y = 0.5,
+                                tot_time = tot_time, y = ysim,
                                 reparam = FALSE, common = FALSE,
                                 beta = FALSE, unif = TRUE,
                                 a = 0, b = 1,
@@ -172,7 +172,7 @@ res_fitMCMC_M5 <- fitMCMC_bdRho(phylo = tree1,
                                 mcmcSettings = list(iterations = 3*nbIter,
                                                     startValue = startValueTest4),
                                 prior = priorTest4,
-                                parallel = F, save_inter =
+                                parallel = FALSE, save_inter =
                                   c(seq(from = proc.time()[3], to = maxTime, by = freqTime),stopTime),
                                 index_saving = as.factor("M5_tree1"))
 plot(res_fitMCMC_M5$mcmc)

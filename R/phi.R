@@ -20,12 +20,12 @@
 #'
 #' @seealso \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}
 
-phi <- function(beta = F, unif = F){ # by default put a = 0 and b = 1
-  if(beta == T & unif == T)
+phi <- function(beta = FALSE, unif = FALSE){ # by default put a = 0 and b = 1
+  if(beta == TRUE & unif == TRUE)
     stop("choose one unique prior distribution on the sampling fraction(s)") # check that should stop the code
-  if(beta == F & unif == F)
+  if(beta == FALSE & unif == FALSE)
     stop("choose one unique prior distribution on the sampling fraction(s)") # check that should stop the code
-  if(beta == T){
+  if(beta == TRUE){
     function(x, a, b){
       if(a < 0 | b < 0 )
         stop("a and b should be higher than 0") # check that should stop the code
@@ -35,7 +35,7 @@ phi <- function(beta = F, unif = F){ # by default put a = 0 and b = 1
                   factorial(a+b-1)), 0)
     }
   }
-  else if(unif == T){
+  else if(unif == TRUE){
     function(x, a, b){
       if(a < 0 | b < 0 )
         stop("a and b should be higher than 0") # check that should stop the code
