@@ -48,8 +48,8 @@ likelihood_bdK <- function(tottime, nbtips, tj,
         like_tuning <- function(tun, seqphy){
           integr_loglik <- sapply(seqphy, function(i){
             log(integr_Rho(function(yj) sapply(yj, function (yj){
-              exp(log(1-Pa(t = tottime, d = div, epsi = turn)*(1-yj))*-2 +
-                    sum(log(Pnd(tj[[i]], d = div, epsi = turn, rho = yj)) +
+              exp(log(1-Pa(t = tottime, r = div, epsi = turn)*(1-yj))*-2 +
+                    sum(log(Pnd(tj[[i]], r = div, epsi = turn, y = yj)) +
                           tj[[i]]*div-log(div)) - tun[i]*(nbtips[i]-1))
             }), 0, 1, rel.tol = rel.tol))
           })
@@ -97,8 +97,8 @@ likelihood_bdK <- function(tottime, nbtips, tj,
         else(rv_fin <- sum(rv)-
                sum(unlist(tj)*div-log(div)) + sum(tun*(nbtips-1)) +
                sum(log(nbtips)) +
-               log(P1_a(t = tottime, d = div, epsi = turn))*root -
-               log(Pa(t = tottime, d = div, epsi = turn)) * (nbtip - root))
+               log(P1_a(t = tottime, r = div, epsi = turn))*root -
+               log(Pa(t = tottime, r = div, epsi = turn)) * (nbtip - root))
       }
       resLH <- list(logLik = rv_fin, tuning = tun)
       return(resLH)
