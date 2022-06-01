@@ -38,7 +38,7 @@ likelihood_bdRho(
 
 \item{dt}{Numeric. This argument is only used if \code{yj = NULL} and \code{reparam = FALSE}. If \code{dt = 0}, the integral on the sampling probabilitie(s) is computed using the R \code{stats::integrate} function. If \eqn{dt\ge0}, the integral of the sampling probabilitie(s) is performed manually using a piece-wise constant approximation. \code{dt} represents the length of the interval on which the function integrated is assumed to be constant. For manual integral, advised value of \code{dt} are \eqn{1e-3} to \eqn{1e-5}.}
 
-\item{rel.tol}{Numeric. This argument is only used if \code{yj = NULL}, \code{reparam = FALSE} and \code{dt = 0}. This represents the relative accuracy requested when the integral is performed. Typically \code{.Machine$double.eps^0.25} is used but a value of \eqn{1e-10} has been tested and performs well.}
+\item{rel.tol}{Numeric. This argument is only used if \code{yj = NULL}, \code{reparam = FALSE} and \code{dt = 0}. This represents the relative accuracy requested when the integral is performed using \code{stats::integrate} function. Typically \code{.Machine$double.eps^0.25} is used but a value of \eqn{1e-10} has been tested and performs well.}
 
 \item{tuned_dichotomy}{Logical. This argument is only used if \code{yj = NULL} and \code{reparam = FALSE}. If \code{TRUE}, when the log likelihood is equal to non finite value due to approximations, a dichotomy search is performed to find a tuning parameter that will be used for getting a finite value of the log likelihood. If \code{TRUE}, the log likelihood will take longer to calculate. Else if \code{FALSE}, no dichotomy search is performed; if the log likelihood is equal to non finite value due to approximations, the function will return this non finite value.}
 
@@ -74,7 +74,7 @@ This function is specifically intended to be used on phylogenies with unknown or
 Stadler, T. (2009). On incomplete sampling under birth–death models and connections to the sampling-based coalescent. Journal of theoretical biology, 261(1), 58-66.
 }
 \seealso{
-\code{\link{fitMCMC_bdRho}}
+\code{\link{fitMCMC_bdRho}} and \code{\link{likelihood_bdK}}
 }
 \author{
 Sophia Lambert

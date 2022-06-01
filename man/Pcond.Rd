@@ -2,12 +2,12 @@
 % Please edit documentation in R/Pcond.R
 \name{Pcond}
 \alias{Pcond}
-\title{Conditioning the birth-death process on the age and the survival of the process.}
+\title{Conditioning the birth-death process on a certain time and the survival of the process.}
 \usage{
 Pcond(t, r, epsi, y)
 }
 \arguments{
-\item{t}{Numeric. The time of the start of the birth-death process in millions of years.}
+\item{t}{Numeric. The specific time in the past in millions of years. Typically, the age of the clade is used to condition on the start of the process.}
 
 \item{r}{Numeric. The net diversification rate: \eqn{\lambda - \mu}. The units are in events/lineages/millions years.}
 
@@ -16,10 +16,10 @@ Pcond(t, r, epsi, y)
 \item{y}{Numeric. The sampling probability also called sampling fraction: \eqn{k / N}.}
 }
 \value{
-The probability of the birth-death process starting with one lineage at time t and surviving at present.
+The probability of the birth-death process starting with one lineage at time \eqn{t} and surviving at present.
 }
 \description{
-Calculating the probability of conditioning the birth-death process on the age of the process and its survival.
+Calculating the probability of conditioning the birth-death process on the time \eqn{t} and its survival to present day.
 }
 \seealso{
 \code{\link{likelihood_bdRho}}, \code{\link{fitMCMC_bdRho}}

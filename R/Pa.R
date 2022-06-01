@@ -12,7 +12,7 @@
 #'
 #' @export
 #'
-#@seealso \code{\link{likelihood_bdK}}, \code{\link{fitMCMC_bdK}}
+#'@seealso \code{\link{likelihood_bdK}}, \code{\link{fitMCMC_bdK}}
 
 Pa <- function(t, r, epsi){
   1-1/(1+(exp(r*t)-1)/(1-epsi))
