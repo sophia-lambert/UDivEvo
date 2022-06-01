@@ -17,6 +17,7 @@ Imports:
     coda,
     picante,
     stats,
+    TESS,
     utils
 Suggests: 
     ape,
