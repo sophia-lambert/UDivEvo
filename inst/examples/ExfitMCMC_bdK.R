@@ -46,7 +46,7 @@ res_fitMCMC_M2 <- fitMCMC_bdK(phylo = tree1,
                               mcmcSettings = list(iterations = 3*nbIter,
                                                   startValue = startValueTest4),
                               prior = priorTest4,
-                              parallel = F, save_inter =
+                              parallel = FALSE, save_inter =
                                 c(seq(from = proc.time()[3], to = maxTime, by = freqTime),stopTime),
                               index_saving = as.factor("M2_tree1"))
 plot(res_fitMCMC_M2$mcmc)
