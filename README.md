@@ -8,5 +8,6 @@ The main functions are parametrised to infer net diversification and turnover ra
 To install this package on R, you can simply run:
 
 `install. packages("devtools")`
+
 `devtools::install_github("sophia-lambert/UDivEvo")`
 
