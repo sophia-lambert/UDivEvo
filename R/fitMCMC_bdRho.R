@@ -95,11 +95,8 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
     counts[[i]][counts[[i]] > 2]-1)
   ages <- lapply(seqphy, function (i)
     cbind(ages[[i]], 1))
-  polytom_nodes_position <- lapply(seqphy, function (i)
-    which(ages[[i]][,1] %in% polytom_nodes[[i]])) # essential for having the good position
-  for (i in seqphy) {
-    ages[[i]][polytom_nodes_position[[i]],3] <- polytomTimes[[i]]
-  }
+  ages <- lapply(seqphy, function(i){
+    ages[[i]][polytom_nodes[[i]],3] <- polytomTimes[[i]]; ages[[i]]})
   ages_polytom <- lapply(seqphy, function (i)
     as.data.frame(lapply(as.data.frame(ages[[i]]), rep, ages[[i]][,3])))
   age <- sapply(seqphy, function(i)

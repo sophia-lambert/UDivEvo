@@ -56,9 +56,9 @@ fitMCMC_bdK <- function(phylo, tot_time,
   polytom_nodes <- as.numeric(names(counts)[counts > 2])
   polytomTimes <- counts[counts > 2]-1
   ages <- cbind(ages, 1)
-  polytom_nodes_position <- which(ages[,1] %in% polytom_nodes) # essential for having the good position
+  polytom_nodes_position <- which(ages[,1] %in% polytom_nodes) # essential for the good position (because not ordered)
   ages[polytom_nodes_position,3] <- polytomTimes
-  ages_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(ages), rep, ages[,3])))
+  ages_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(ages), rep, ages[,3]))[,1:2])
   colnames(ages_polytom)<-NULL
   age <- max(ages_polytom[,2])
   tj <- list()
@@ -69,8 +69,8 @@ fitMCMC_bdK <- function(phylo, tot_time,
     from_past_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(from_past), rep, ages[-length(ages[,3]),3])))
     select <- which(from_past_polytom[,1]==nbtip+1)[2]
     nbtips <- c()
-    nbtips[1] <- length(which(ages_polytom[1:select-1,1:2][,1]<(nbtip+1)))
-    nbtips[2] <- length(which(ages_polytom[select:(ntot-1),1:2][,1]<(nbtip+1)))
+    nbtips[1] <- length(which(ages_polytom[1:select-1,][,1]<(nbtip+1)))
+    nbtips[2] <- length(which(ages_polytom[select:(ntot-1),][,1]<(nbtip+1)))
     out <-  which(ages_polytom[,1]%in%c(1:nbtip))
     ages_nodes <- ages_polytom[-out,]
     node <- list()
