@@ -2,7 +2,7 @@
 #'
 #' @description Fits the birth-death rho model (a constant-time homogeneous birth-death model under Bernoulli sampling) to a rooted ultrametric phylogeny using Bayesiann inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time. The inference can be done specifying the sampling probability or integrating over it according to a specified sampling probability distribution (either uniform: \code{unif = TRUE} or beta distribution: \code{beta = TRUE}). This function can fit the birth-death rho model on a stem or crown phylogeny or a set of phylogenies assuming common or specific diversification rates. It is by default parametrised on the net diversification rate and the turnover rate but can be reparametrised on the product \eqn{y*\lambda} and the net diversification rate \eqn{r}. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
 #'
-#' @param phylo Object of class \code{phylo} or \code{multiPhylo}. A rooted ultrametric phylogeny of class \code{phylo} or a set of rooted ultrametric phylogenies of class \code{multiPhylo}.
+#' @param phylo Object of class \code{phylo} or \code{multiPhylo}. A rooted ultrametric phylogeny of class \code{phylo} or a set of rooted ultrametric phylogenies of class \code{multiPhylo}. The rooted ultrametric phylogenie(s) can have polytomie(s) (i.e. non binary tree).
 #' @param tot_time Numeric vector. The stem or crown age (also called MRCA) of the phylogenie(s) depending on the conditioning of the process specified (see \code{cond} argument) and the phylogenie(s) used accordingly. The length of the numeric vector equals the number of phylogenie(s) used. It is of length 1 if a unique phylogeny is used. The stem age of the phylogeny can be computed using max(TreeSim::getx(phylo))+phylo$root.edge (note that the phylo$root.edge needs to be known) and the crown age of the phylogeny can be computed using max(TreeSim::getx(phylo)). If multiple phylogenies are used the following can be used for calculating the stem age: \code{sapply(seq_along(multiPhylo), function(i) max(TreeSim::getx(multiPhylo[[i]]))+multiPhylo[[i]]$root.edge)} and the crown age: \code{sapply(seq_along(multiPhylo), function(i) max(TreeSim::getx(multiPhylo[[i]])))}. Note that if multiple phylogenies are used, the phylogenies do not need to have the same root age but they need to be conditioned the same way (for all phylogenies either their stem or crown age).
 #' @param y Numeric vector. The sampling probabilitie(s) typically calculated as \eqn{k/N} where \code{k} is the number of extant sampled tips and \eqn{N} is the global diversity of the clade. The length of the numeric vector equals the number of phylogenie(s) used. If \code{NULL} (default option) and \code{reparam = FALSE}, the sampling probabilitie(s) are integrated according to the specified sampling probability distribution (corresponding to the model \eqn{birth-death∫\rho} in Lambert et al. 2022).
 #' @param reparam Logical. If \code{FALSE} (the default option), the log likelihood is calculated using the parameters \eqn{r} and \eqn{\epsilon}. If \code{TRUE} and \code{yj = NULL}, the log likelihood is parametrised using the product \eqn{y*\lambda} and the net diversification rate \eqn{r}.
@@ -87,8 +87,23 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
     rbind(from_past[[i]][, 2:3], c(nbtips[i] + 1, 0)))
   ages <- lapply(seqphy, function(i)
     ages[[i]][order(ages[[i]][, 1]), ])
+  counts <- lapply(seqphy, function (i)
+    table(phylo[[i]]$edge[,1])) # handling polytomies
+  polytom_nodes <- lapply(seqphy, function (i)
+    as.numeric(names(counts[[i]])[counts[[i]] > 2]))
+  polytomTimes <- lapply(seqphy, function (i)
+    counts[[i]][counts[[i]] > 2]-1)
+  ages <- lapply(seqphy, function (i)
+    cbind(ages[[i]], 1))
+  polytom_nodes_position <- lapply(seqphy, function (i)
+    which(ages[[i]][,1] %in% polytom_nodes[[i]])) # essential for having the good position
+  for (i in seqphy) {
+    ages[[i]][polytom_nodes_position[[i]],3] <- polytomTimes[[i]]
+  }
+  ages_polytom <- lapply(seqphy, function (i)
+    as.data.frame(lapply(as.data.frame(ages[[i]]), rep, ages[[i]][,3])))
   age <- sapply(seqphy, function(i)
-    max(ages[[i]][, 2]))
+    max(ages_polytom[[i]][, 2]))
   if (cond=="crown")
   {node_start <- 2
   root <- 1}
@@ -100,7 +115,7 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
   node <- lapply(seqphy, function(i)
     (as.numeric(nbtips[i]) + j[[i]]))
   tj <- lapply(seqphy, function(i)
-    age[i] - ages[[i]][node[[i]], 2])
+    age[i] - ages_polytom[[i]][node[[i]], 2])
   chainMWvector <- c()
 
   likeli <- likelihood_bdRho(tottime = tot_time, nbtips = nbtips,
