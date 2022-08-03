@@ -2,7 +2,7 @@
 #'
 #' @description Fits the birth-death k model (a constant-time homogeneous birth-death model under k-sampling) to a rooted ultrametric phylogeny using Bayesiann inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time as well as having \eqn{k} extant sampled tips at present. This function can fit the birth-death k model on a stem or crown phylogeny. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
 #'
-#' @param phylo Object of class \code{phylo}. A rooted ultrametric phylogeny of class \code{phylo}.
+#' @param phylo Object of class \code{phylo}. A rooted ultrametric phylogeny of class \code{phylo}. The rooted ultrametric phylogeny can have polytomie(s) (i.e. non binary tree).
 #' @param tot_time Numeric. The stem or crown age (also called MRCA) of the phylogeny depending on the conditioning of the process specified (see \code{cond} argument) and the phylogeny used accordingly. The stem age of the phylogeny can be computed using max(TreeSim::getx(phylo))+phylo$root.edge (note that the phylo$root.edge needs to be known) and the crown age of the phylogeny can be computed using max(TreeSim::getx(phylo)).
 #' @param cond Character. Specifying the conditioning of the birth-death process. Two conditioning are available, either \code{cond = "crown"} (the default option) if the phylogeny used is a crown phylogeny or \code{cond = "stem"} if the phylogeny used is a stem phylogeny.
 #' @param YULE Logical. If \code{TRUE}, the extinction rate \eqn{\mu} thus the turnover rate \eqn{\epsilon} are fixed to \eqn{0} and the net diversification rate \eqn{r} equals the speciation rate \eqn{\lambda}. If \code{FALSE} (the default option), the turnover rate \eqn{\epsilon} is not fixed to \eqn{0} and is thus inferred.
@@ -52,18 +52,27 @@ fitMCMC_bdK <- function(phylo, tot_time,
   nbtip <- ape::Ntip(phylo)
   from_past <- cbind(phylo$edge, picante::node.age(phylo)$ages)
   ages <- rbind(from_past[, 2:3], c(nbtip + 1, 0))
-  age <- max(ages[, 2])
+  counts <- table(phylo$edge[,1])
+  polytom_nodes <- as.numeric(names(counts)[counts > 2])
+  polytomTimes <- counts[counts > 2]-1
+  ages <- cbind(ages, 1)
+  polytom_nodes_position <- which(ages[,1] %in% polytom_nodes) # essential for having the good position
+  ages[polytom_nodes_position,3] <- polytomTimes
+  ages_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(ages), rep, ages[,3])))
+  colnames(ages_polytom)<-NULL
+  age <- max(ages_polytom[,2])
   tj <- list()
   if (cond=="crown")
   {
     root <- 2
     ntot <- nbtip-1+nbtip
-    select <- which(from_past[,1]==nbtip+1)[2]
+    from_past_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(from_past), rep, ages[-length(ages[,3]),3])))
+    select <- which(from_past_polytom[,1]==nbtip+1)[2]
     nbtips <- c()
-    nbtips[1] <- ((length(ages[1:select-1,])/2)+1)/2
-    nbtips[2] <- ((length(ages[select:(ntot-1),])/2)+1)/2
-    out <-  which(ages[,1]%in%c(1:nbtip))
-    ages_nodes <- ages[-out,]
+    nbtips[1] <- length(which(ages_polytom[1:select-1,1:2][,1]<(nbtip+1)))
+    nbtips[2] <- length(which(ages_polytom[select:(ntot-1),1:2][,1]<(nbtip+1)))
+    out <-  which(ages_polytom[,1]%in%c(1:nbtip))
+    ages_nodes <- ages_polytom[-out,]
     node <- list()
     node[[1]] <- 1:(nbtips[1]-1)
     node[[2]] <- nbtips[1]:(nbtips[1]+nbtips[2]-2)
@@ -78,8 +87,8 @@ fitMCMC_bdK <- function(phylo, tot_time,
     nbtips <- nbtip
     j <- 1:(as.numeric(nbtips) - 1)
     node <- as.numeric(nbtips) + j
-    ages <- ages[order(ages[, 1]), ]
-    tj[[1]] <- age - ages[node, 2]
+    ages_polytom <- ages_polytom[order(ages_polytom[, 1]), ]
+    tj[[1]] <- age - ages_polytom[node, 2]
   }
 
   likeli <- likelihood_bdK(tottime = tot_time, nbtips, tj,
