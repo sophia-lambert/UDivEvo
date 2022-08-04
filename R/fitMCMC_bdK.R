@@ -69,8 +69,8 @@ fitMCMC_bdK <- function(phylo, tot_time,
     from_past_polytom <- as.matrix(as.data.frame(lapply(as.data.frame(from_past), rep, ages[-length(ages[,3]),3])))
     select <- which(from_past_polytom[,1]==nbtip+1)[2]
     nbtips <- c()
-    nbtips[1] <- length(which(ages_polytom[1:select-1,][,1]<(nbtip+1)))
-    nbtips[2] <- length(which(ages_polytom[select:(ntot-1),][,1]<(nbtip+1)))
+    nbtips[1] <- length(which(ages_polytom[1:select-1,1]<(nbtip+1)))
+    nbtips[2] <- length(which(ages_polytom[select:(ntot-1),1]<(nbtip+1)))
     out <-  which(ages_polytom[,1]%in%c(1:nbtip))
     ages_nodes <- ages_polytom[-out,]
     node <- list()
