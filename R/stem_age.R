@@ -1,26 +1,30 @@
-#' Calculate the crown age of a phylogeny
+#' Calculate the stem age of a phylogeny
 #'
-#' @description Calculate the crown age of a rooted ultrametric phylogeny or set of phylogenies. This function can used on stem or crown phylogenie(s) and on binary or non binary phylogenie(s).
+#' @description Calculate the stem age of a rooted ultrametric phylogeny or set of phylogenies. This function can used only on stem crown phylogenie(s) and on binary or non binary phylogenie(s).
 #'
 #' @param phylo Object of class \code{phylo} or \code{multiPhylo}. A rooted ultrametric phylogeny of class \code{phylo} or a set of rooted ultrametric phylogenies of class \code{multiPhylo}. The rooted ultrametric phylogenie(s) can have polytomie(s) (i.e. non binary tree).
 #'
-#' @details This function will calculate the crown age of a phylogeny or a set of phylogenies.
+#' @details This function will calculate the stem age of a phylogeny or a set of phylogenies.
 #'
-#' @return Returns the value of the crown age in the same unit as the branch length of the phylogenie(s) (typically in million of years).
+#' @return Returns the value of the stem age in the same unit as the branch length of the phylogenie(s) (typically in million of years).
 #'
 #' @author Sophia Lambert
 #'
 #' @export
 #'
-#' @seealso \code{\link{stem_age}}
+#' @seealso \code{\link{crown_age}}
 
 
-crown_age <- function(phylo){
+stem_age <- function(phylo){
   if(!class(phylo)=="phylo"&!class(phylo)=="multiPhylo"){
     stop("the phylo object should be of class `phylo` or `multiPhylo`")
   }
   if(class(phylo)=="phylo"){
     phylo <- list(phylo)
+  }
+  if(any(sapply(seq_along(phylo), function(i)
+    (!"root.edge" %in% names(phylo[[i]])|is.null(phylo[[i]][["root.edge"]]))))){
+    stop("the phylo or multiPhylo object should have a stem age for each phylogenies at phylo$root.egde or phylo[[i]]$root.egde")
   }
   seqphy <- seq_along(phylo)
   len <- length(seqphy)
@@ -45,5 +49,7 @@ crown_age <- function(phylo){
     as.data.frame(lapply(as.data.frame(ages[[i]]), rep, ages[[i]][,3])))
   age <- sapply(seqphy, function(i)
     max(ages_polytom[[i]][, 2]))
-  return(age)
+  stem.age <- sapply(seqphy, function(i)
+    age[i]+phylo[[i]]$root.edge)
+  return(stem.age)
 }
