@@ -701,7 +701,7 @@ fitMLE_bdRho <- function(phylo, tot_time, r = NULL, epsi = NULL,
             bfLH <- tuningLH(div = r, turn = rep(0, len), a = a, b = b)
             LH <- bfLH$logLik
             # if(tun_mem == TRUE) tun.init <<- bfLH$tun # IMPORTANT tun_mem does not exist anymore
-            return(LH)
+            return(-LH)
           }
           # if(is.infinite(temp$value)) warning("Yule model is highly improbable")
 
@@ -723,7 +723,7 @@ fitMLE_bdRho <- function(phylo, tot_time, r = NULL, epsi = NULL,
             bfLH <- tuningLH(div = r, turn = rep(0, len), a = a, b = b)
             LH <- bfLH$logLik
             # if(tun_mem == TRUE) tun.init <<- bfLH$tun # IMPORTANT tun_mem does not exist anymore
-            return(LH)
+            return(-LH)
           }
           # if(is.infinite(temp$value)) warning("Yule model is highly improbable")
 
