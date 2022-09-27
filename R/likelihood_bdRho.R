@@ -49,7 +49,6 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
                              brk){
 
   seqphy <- 1:length(nbtips)
-  prPhi <- phi(beta = beta, unif = unif)
 
   # The birth-death-sampling (Bernoulli sampling) model when the sampling probability is known.
 
@@ -84,6 +83,7 @@ likelihood_bdRho <- function(tottime, nbtips, tj, yj,
   # The birth-death∫rho (Bernoulli sampling) model when the sampling probability is not known.
 
   else{
+    prPhi <- phi(beta = beta, unif = unif)
     integr_Rho <- int_Rho(dt = dt)
     function(tun.init, seqphy.init){
       function(div, turn, a, b){
