@@ -31,7 +31,7 @@ fitMCMC_bdRho(
 )
 }
 \arguments{
-\item{phylo}{Object of class \code{phylo} or \code{multiPhylo}. A rooted ultrametric phylogeny of class \code{phylo} or a set of rooted ultrametric phylogenies of class \code{multiPhylo}.}
+\item{phylo}{Object of class \code{phylo} or \code{multiPhylo}. A rooted ultrametric phylogeny of class \code{phylo} or a set of rooted ultrametric phylogenies of class \code{multiPhylo}. The rooted ultrametric phylogenie(s) can have polytomie(s) (i.e. non binary tree).}
 
 \item{tot_time}{Numeric vector. The stem or crown age (also called MRCA) of the phylogenie(s) depending on the conditioning of the process specified (see \code{cond} argument) and the phylogenie(s) used accordingly. The length of the numeric vector equals the number of phylogenie(s) used. It is of length 1 if a unique phylogeny is used. The stem age of the phylogeny can be computed using max(TreeSim::getx(phylo))+phylo$root.edge (note that the phylo$root.edge needs to be known) and the crown age of the phylogeny can be computed using max(TreeSim::getx(phylo)). If multiple phylogenies are used the following can be used for calculating the stem age: \code{sapply(seq_along(multiPhylo), function(i) max(TreeSim::getx(multiPhylo[[i]]))+multiPhylo[[i]]$root.edge)} and the crown age: \code{sapply(seq_along(multiPhylo), function(i) max(TreeSim::getx(multiPhylo[[i]])))}. Note that if multiple phylogenies are used, the phylogenies do not need to have the same root age but they need to be conditioned the same way (for all phylogenies either their stem or crown age).}
 
@@ -81,7 +81,7 @@ fitMCMC_bdRho(
 Returns an object of class \code{MCMC_bd}. This \code{MCMC_bd} object is a list containing the name of the birth-death model performed and an object of class \code{"mcmcSampler"    "bayesianOutput"} (see the output of \code{\link[BayesianTools:runMCMC]{BayesianTools::runMCMC()}}). This second object contains the MCMC chains and the information about the MCMC run. For analysis of the chains, it can be converted to a \code{coda} object (\code{\link[BayesianTools:getSample]{BayesianTools::getSample()}}) or used in line with the appropriate functions e.g. \code{\link[BayesianTools:MAP]{BayesianTools::MAP()}}.
 }
 \description{
-Fits the birth-death rho model (a constant-time homogeneous birth-death model under Bernoulli sampling) to a rooted ultrametric phylogeny using Bayesiann inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time. The inference can be done specifying the sampling probability or integrating over it according to a specified sampling probability distribution (either uniform: \code{unif = TRUE} or beta distribution: \code{beta = TRUE}). This function can fit the birth-death rho model on a stem or crown phylogeny or a set of phylogenies assuming common or specific diversification rates. It is by default parametrised on the net diversification rate and the turnover rate but can be reparametrised on the product \eqn{y*\lambda} and the net diversification rate \eqn{r}. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
+Fits the birth-death rho model (a constant-time homogeneous birth-death model under Bernoulli sampling) to a rooted ultrametric phylogeny using Bayesian inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time. The inference can be done specifying the sampling probability or integrating over it according to a specified sampling probability distribution (either uniform: \code{unif = TRUE} or beta distribution: \code{beta = TRUE}). This function can fit the birth-death rho model on a stem or crown phylogeny or a set of phylogenies assuming common or specific diversification rates. It is by default parametrised on the net diversification rate and the turnover rate but can be reparametrised on the product \eqn{y*\lambda} and the net diversification rate \eqn{r}. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
 }
 \details{
 This function will fit different birth-death models depending on the arguments chosen:
@@ -161,9 +161,9 @@ plot(res_fitMCMC_M1$mcmc)
 res_fitMCMC_M5 <- fitMCMC_bdRho(phylo = tree1,
                                 tot_time = tot_time, y = ysim,
                                 reparam = FALSE, common = FALSE,
-                                beta = FALSE, unif = TRUE,
-                                a = 0, b = 1,
-                                afix = TRUE, bfix =TRUE,
+                                beta = FALSE, unif = FALSE,
+                                a = NULL, b = NULL,
+                                afix = NULL, bfix =NULL,
                                 cond = "crown", YULE = FALSE,
                                 dt = 0, rel.tol = 1e-10,
                                 tuned_dichotomy = TRUE,

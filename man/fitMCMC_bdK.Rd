@@ -22,7 +22,7 @@ fitMCMC_bdK(
 )
 }
 \arguments{
-\item{phylo}{Object of class \code{phylo}. A rooted ultrametric phylogeny of class \code{phylo}.}
+\item{phylo}{Object of class \code{phylo}. A rooted ultrametric phylogeny of class \code{phylo}. The rooted ultrametric phylogeny can have polytomie(s) (i.e. non binary tree).}
 
 \item{tot_time}{Numeric. The stem or crown age (also called MRCA) of the phylogeny depending on the conditioning of the process specified (see \code{cond} argument) and the phylogeny used accordingly. The stem age of the phylogeny can be computed using max(TreeSim::getx(phylo))+phylo$root.edge (note that the phylo$root.edge needs to be known) and the crown age of the phylogeny can be computed using max(TreeSim::getx(phylo)).}
 
@@ -54,7 +54,7 @@ fitMCMC_bdK(
 Returns an object of class \code{MCMC_bdK}. This \code{MCMC_bdK} object is a list containing the name of the birth-death model performed and an object of class \code{"mcmcSampler"    "bayesianOutput"} (see the output of \code{\link[BayesianTools:runMCMC]{BayesianTools::runMCMC()}}). This second object contains the MCMC chains and the information about the MCMC run. For analysis of the chains, it can be converted to a \code{coda} object (\code{\link[BayesianTools:getSample]{BayesianTools::getSample()}}) or used in line with the appropriate functions e.g. \code{\link[BayesianTools:MAP]{BayesianTools::MAP()}}.
 }
 \description{
-Fits the birth-death k model (a constant-time homogeneous birth-death model under k-sampling) to a rooted ultrametric phylogeny using Bayesiann inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time as well as having \eqn{k} extant sampled tips at present. This function can fit the birth-death k model on a stem or crown phylogeny. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
+Fits the birth-death k model (a constant-time homogeneous birth-death model under k-sampling) to a rooted ultrametric phylogeny using Bayesian inference. The birth-death process is conditioned on the starting time of the process \code{tot_time} and the survival of the process at present time as well as having \eqn{k} extant sampled tips at present. This function can fit the birth-death k model on a stem or crown phylogeny. This function is specifically adapted for diversification analysis on phylogenies on which the sampling probability is unknown.
 }
 \details{
 This function will fit the birth-death k-sampling model and the function will infer the net diversification rate \eqn{r} and the turnover rate \eqn{\epsilon}. Note that the \code{prior} and the \code{mcmcSettings} should be adapted to the number of parameters (here \eqn{2}, \eqn{r} and \eqn{\epsilon}). This function is specifically intended to be used on phylogenies with unknown or highly uncertain global diversity estimates (the sampling probability is not known with accuracy). Note that the sampling probability is never estimated and that this function is not able to evaluate negative rates.
