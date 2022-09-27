@@ -103,35 +103,35 @@ ysim <- 0.5
 
 # Fitting the birth-death∫rho model
 
-res_fitMCMC_M1 <- fitMLE_bdRho(phylo = tree1,
-                               tot_time = tot_time, r = lamb_moments,
-                               epsi = 0, y = NULL,  ylamb = NULL,
-                               reparam = FALSE, common = FALSE,
-                               beta = FALSE, unif = TRUE,
-                               a = 0, b = 1,
-                               afix = TRUE, bfix =TRUE,
-                               cond = "crown", YULE = FALSE,
-                               dt = 0, rel.tol = 1e-10,
-                               tuned_dichotomy = TRUE,
-                               brk = 2000)
+res_fitMLE_M1 <- fitMLE_bdRho(phylo = tree1,
+                              tot_time = tot_time, r = lamb_moments,
+                              epsi = 0, y = NULL, ylamb = NULL,
+                              reparam = FALSE, common = FALSE,
+                              beta = FALSE, unif = TRUE,
+                              a = 0, b = 1,
+                              afix = TRUE, bfix =TRUE,
+                              cond = "crown", YULE = FALSE,
+                              dt = 0, rel.tol = 1e-10,
+                              tuned_dichotomy = TRUE,
+                              brk = 2000)
 
-res_fitMCMC_M1$parameters
+res_fitMLE_M1$parameters
 
 # Fitting the classical birth-death-sampling model
 
-res_fitMCMC_M5 <- fitMLE_bdRho(phylo = tree1,
-                               tot_time = tot_time, r = lamb_moments,
-                               epsi = 0, y = ysim, ylamb = NULL,
-                               reparam = FALSE, common = FALSE,
-                               beta = FALSE, unif = FALSE,
-                               a = NULL, b = NULL,
-                               afix = NULL, bfix =NULL,
-                               cond = "crown", YULE = FALSE,
-                               dt = 0, rel.tol = 1e-10,
-                               tuned_dichotomy = TRUE,
-                               brk = 2000)
+res_fitMLE_M5 <- fitMLE_bdRho(phylo = tree1,
+                              tot_time = tot_time, r = lamb_moments,
+                              epsi = 0, y = ysim, ylamb = NULL,
+                              reparam = FALSE, common = FALSE,
+                              beta = FALSE, unif = FALSE,
+                              a = NULL, b = NULL,
+                              afix = NULL, bfix =NULL,
+                              cond = "crown", YULE = FALSE,
+                              dt = 0, rel.tol = 1e-10,
+                              tuned_dichotomy = TRUE,
+                              brk = 2000)
 
-res_fitMCMC_M5$parameters
+res_fitMLE_M5$parameters
 }
 \seealso{
 \code{\link{likelihood_bdRho}} and \code{\link{fitMCMC_bdRho}}
