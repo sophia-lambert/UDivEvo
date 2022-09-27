@@ -538,11 +538,10 @@ fitMCMC_bdRho <- function(phylo, tot_time, y = NULL,
       # if a is inferred
 
       else if(afix == FALSE & bfix == TRUE){
+        p <- length(prior$lower)
 
         if(p!=2)
           stop("if YULE = TRUE, common = TRUE and afix = FALSE two parameters *r* and *a* should be inferred and thus have a prior")
-
-        p <- length(prior$lower)
 
         # and we want to force multi phylo to have the same values
 
